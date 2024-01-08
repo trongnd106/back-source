@@ -1,0 +1,96 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<style>
+    .table-container {
+        padding: 15px 20px;
+    }
+
+    .title {
+        font-size: 25px;
+        font-weight: 600;
+        padding-bottom: 10px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    tr:hover {background-color: #ccc;}
+</style>
+
+<body>
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <a href="/create">Create Users</a>
+    </div>
+    <div class="table-container">
+        <!-- <%= JSON.stringify(listUsers) %> -->
+        <div class="title">
+            List Users 
+        </div>
+        <table>
+            <tr>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Name</th>
+              <th>City</th>
+              <th>Action</th>
+            </tr>
+
+            <% listUsers.forEach(function(user){ %>
+              <tr>
+                <td><%= user.id %></td>
+                <td><%= user.email %></td>
+                <td><%= user.name %></td>
+                <td><%= user.city %></td>
+                <td>
+                  <a href="/update/<%= user.id %>">Edit</a>
+                  <form action="/delete-user/<%= user.id %>" method="POST">
+                    <button>Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }); %>
+        </table>
+    </div>   
+</body>
+</html>
+
+<!-- <script src="https://ajax.googleapis.com/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $(".btnDelete").click(function(event){
+      event.preventDefault();
+      // const id = $(this).attr('data-id');
+      const id = $(this).closest('tr').find('td:first').text(); // Lấy ID từ dòng chứa nút delete
+
+      if (confirm(`Are you sure to delete this user, id = ${id}`)){
+        $.ajax({
+          url: `${window.location.origin}/api/home/${id}`,
+          method: "DELETE",
+          success: (result) => {
+            console.log(result);
+            $(this).closest("tr").remove();
+          },
+          error: function(error) {
+            console.log(">>> ajax error: ", error)
+          }
+        });
+      } else {
+        // Do nothing!
+      }
+    });
+  });
+</script> -->
